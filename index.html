@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teka-teki Tombol</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: auto;
+            background-color: #eef;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        button, .real-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid #007bff;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover, .real-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .explosion {
+            animation: explode 0.5s forwards;
+        }
+
+        @keyframes explode {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.5);
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pilih tombol yang benar!</h1>
+        <div class="buttons">
+            <button onclick="checkButton(this)">meow 1</button>
+            <button onclick="checkButton(this)">meow 2</button>
+            <button onclick="checkButton(this)">meow 3</button>
+             <a href="https://link.dana.id/ambil?c=sgrc2w9b6&r=eywrxj" class="real-button" onclick="checkButton(this, event)">meow 4</a>
+            <button onclick="checkButton(this)">meow 5</button>
+            <a href="https://link.dana.id/ambil?c=sdc7t8dyz&r=eywrxj" class="real-button" onclick="checkButton(this, event)">meow 6</a>
+            <button onclick="checkButton(this)">meow 7</button>
+            <a href="https://link.dana.id/ambil?c=sxjnnv65w&r=eywrxj" class="real-button" onclick="checkButton(this, event)">meow 6</a>
+            <button onclick="checkButton(this)">meow 9</button>
+            <a href="https://link.dana.id/ambil?c=sx8blt4cp&r=eywrxj" class="real-button" onclick="checkButton(this, event)">meow 10</a>
+        </div>
+        <p id="message"></p>
+    </div>
+    <script>
+        function checkButton(button, event) {
+            const message = document.getElementById('message');
+            if (button.classList.contains('real-button')) {
+                message.textContent = 'Selamat ulang tahun Franzeska!';
+                setTimeout(() => {
+                    window.location.href = button.href;
+                }, 3000); // Delay for 3 seconds before redirecting
+                if (event) event.preventDefault(); // Prevent immediate redirect
+            } else {
+                message.textContent = 'Salah! Coba lagi dek';
+                button.classList.add('explosion');
+                setTimeout(() => {
+                    button.classList.remove('explosion');
+                    moveButtonRandomly(button);
+                }, 500);
+            }
+        }
+
+        function moveButtonRandomly(button) {
+            const container = document.querySelector('.buttons');
+            const containerRect = container.getBoundingClientRect();
+            const buttonRect = button.getBoundingClientRect();
+
+            const maxX = containerRect.width - buttonRect.width;
+            const maxY = containerRect.height - buttonRect.height;
+
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+
+            button.style.position = 'absolute';
+            button.style.left = `${randomX}px`;
+            button.style.top = `${randomY}px`;
+        }
+    </script>
+</body>
+</html>
